@@ -23,6 +23,7 @@ function prime_finder_form() {
         '#title' => 'Value',
         '#type' => 'textfield',
         '#description' => t('Enter a number to prime to!'),
+        '#element_validate' => array('element_validate_integer_positive'),
         '#required' => TRUE,
     );
     $form['submit'] = array(
@@ -50,8 +51,6 @@ function isPrime($input) {
 
 function prime_finder_form_submit($form, &$form_state) {
     $prime_num = $form_state['values']['prime_value'];
-
-
     $_SESSION['prime_output'] = $prime_num;
     $form_state['redirect'] = 'prime_finder_success_page';
 }
@@ -59,6 +58,10 @@ function prime_finder_form_submit($form, &$form_state) {
 function prime_finder_success() {
     $output = '<div>';
 
+    if($_SESSION['prime_output'] == 1) {
+        $output = '<p> 1 is not a prime number. </p>';
+    }
+    
     foreach(isPrime($_SESSION['prime_output']) as $value) {
         $output = $output . '<p>' . $value . ' is prime.</p>';
     }
