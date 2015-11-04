@@ -1,0 +1,5 @@
+name = Prime Finder
+description = Finds all the prime numbers up to what the user inputs.
+package = Epicodus Examples
+core = 7.x
+files[] = prime_finder.module

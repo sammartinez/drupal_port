@@ -1,0 +1,67 @@
+<?php
+
+function prime_finder_menu() {
+    $items = array();
+    $items['prime_finder'] = array(
+        'title' => 'Prime Finder',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('prime_finder_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['prime_finder_success_page'] = array(
+        'title' => 'Success',
+        'page callback' => 'prime_finder_success',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function prime_finder_form() {
+    $form['prime_value'] = array(
+        '#title' => 'Value',
+        '#type' => 'textfield',
+        '#description' => t('Enter a number to prime to!'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Calculate!',
+    );
+    return $form;
+}
+
+function isPrime($input) {
+    $output = array();
+    for($i = 1; $i <= $input; $i++) {
+        $counter = 0;
+        for($j = 1; $j <= $i; $j++) {
+            if($i % $j == 0) {
+                $counter++;
+            }
+        }
+        if($counter == 2) {
+            array_push($output, $i);
+        }
+    }
+    return $output;
+ }
+
+function prime_finder_form_submit($form, &$form_state) {
+    $prime_num = $form_state['values']['prime_value'];
+
+
+    $_SESSION['prime_output'] = $prime_num;
+    $form_state['redirect'] = 'prime_finder_success_page';
+}
+
+function prime_finder_success() {
+    $output = '<div>';
+
+    foreach(isPrime($_SESSION['prime_output']) as $value) {
+        $output = $output . '<p>' . $value . ' is prime.</p>';
+    }
+    $output = $output . '</div>';
+    return $output;
+}
