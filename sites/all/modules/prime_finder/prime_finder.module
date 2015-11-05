@@ -33,6 +33,7 @@ function prime_finder_form() {
     return $form;
 }
 
+//This function will check to verify if a number is prime and then output it into an array.
 function isPrime($input) {
     $output = array();
     for($i = 1; $i <= $input; $i++) {
@@ -61,7 +62,7 @@ function prime_finder_success() {
     if($_SESSION['prime_output'] == 1) {
         $output = '<p> 1 is not a prime number. </p>';
     }
-    
+
     foreach(isPrime($_SESSION['prime_output']) as $value) {
         $output = $output . '<p>' . $value . ' is prime.</p>';
     }
