@@ -1,0 +1,57 @@
+<?php
+
+class dnageneratorTestCase extends DrupalUnitTestCase
+{
+    public static function getInfo()
+    {
+        return array(
+        'name' => 'DNA unit tests',
+        'description' => 'Tests for DNA Generator module.',
+        'group' => 'Epicodus Examples Tests',
+        );
+    }
+
+    function testHelixA()
+    {
+        $description = 'Inputting a "A" should output "T" ';
+
+        $input = "A";
+
+        $result = helix($input);
+
+        $this->assertTrue("T", $result);
+    }
+
+    function testHelixT()
+    {
+        $description = 'Inputting a "T" should output "A"';
+
+        $input = "T";
+
+        $result = helix($input);
+
+        $this->assertTrue("A", $result);
+    }
+
+    function testHelixC()
+    {
+        $description = 'Inputting a "C" should output a "G"';
+
+        $input = "C";
+
+        $result = helix($input);
+
+        $this->assertTrue("G", $result);
+    }
+
+    function testHelixG()
+    {
+        $description = 'Inputting a "G" should output a "C"';
+
+        $input = "G";
+
+        $result = helix($input);
+
+        $this->assertTrue("C", $result);
+    }
+}

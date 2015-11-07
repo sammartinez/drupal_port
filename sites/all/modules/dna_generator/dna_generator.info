@@ -3,3 +3,5 @@ description = User will input the first half of their DNA and it will generate t
 package = Epicodus Examples
 core = 7.x
 files[] = dna_generator.module
+dependencies[] = simpletest
+files[] = dna_generator.test
