@@ -1,5 +1,6 @@
 <?php
 
+//Creates a menu for the DNA Generator
 function dna_generator_menu() {
     $items = [];
     $items['dna_generator'] = array(
@@ -18,6 +19,7 @@ function dna_generator_menu() {
     return $items;
 }
 
+//Form created by drupal
 function dna_form() {
     $form['dna_value'] = array(
         '#title' => 'Value',
@@ -33,6 +35,7 @@ function dna_form() {
     return $form;
 }
 
+//Verifying that there is a element validation
 function element_validate_dna($element) {
     $user_input = explode(' ', strtoupper($element['#value']));
     foreach ($user_input as $value) {
@@ -42,6 +45,7 @@ function element_validate_dna($element) {
     }
 }
 
+//Function created in order to verify that each letter will choose the corresponding letter
 function helix($input) {
     $user_input = explode(' ', $input);
     $output_helix = [];
@@ -59,7 +63,7 @@ function helix($input) {
     return $output_helix;
 }
 
-
+//Saves the user input and runs it through the helix function
 function dna_form_submit($form, &$form_state) {
     $user_input = strtoupper($form_state['values']['dna_value']);
     $result = helix($user_input);
@@ -67,6 +71,7 @@ function dna_form_submit($form, &$form_state) {
     $form_state['redirect'] = 'dna_generator_success_page';
 }
 
+//Produces each letter on its on seperate line
 function dna_success() {
     $output = '<div>';
     foreach ($_SESSION['output_dna'] as $letter) {
