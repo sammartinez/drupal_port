@@ -23,6 +23,7 @@ function dna_form() {
         '#title' => 'Value',
         '#type' => 'textfield',
         '#description' => t('Enter in your first helix of your DNA and watch it generate the second!'),
+        '#element_validate' => array('element_validate_dna'),
         '#required' => TRUE,
     );
     $form['submit'] = array(
@@ -31,6 +32,33 @@ function dna_form() {
     );
     return $form;
 }
+
+function element_validate_dna($element) {
+    $user_input = explode(' ', strtoupper($element['#value']));
+    foreach ($user_input as $value) {
+        if(!($value == 'A' || $value == 'T' || $value == 'C' || $value == 'G')) {
+            form_error($element, t('Please enter A, T, C, or G'));
+        }
+    }
+}
+
+function helix($input) {
+    $user_input = explode(' ', $input);
+    $output_helix = [];
+    foreach($user_input as $letter) {
+        if ($letter == 'A') {
+            array_push($output_helix, 'T');
+        } elseif($letter == 'T') {
+            array_push($output_helix, 'A');
+        } elseif ($letter == 'C') {
+            array_push($output_helix, 'G');
+        } elseif ($letter == 'G') {
+            array_push($output_helix, 'C');
+        }
+    }
+    return $output_helix;
+}
+
 
 function dna_form_submit($form, &$form_state) {
     $form_state['redirect'] = 'dna_generator_success_page';
