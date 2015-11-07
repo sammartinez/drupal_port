@@ -1,0 +1,41 @@
+<?php
+
+function dna_generator_menu() {
+    $items = [];
+    $items['dna_generator'] = array(
+        'title' => 'DNA Generator',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dna_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['dna_generator_success_page'] = array(
+        'title' => 'Success',
+        'page callback' => 'dna_success',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function dna_form() {
+    $form['dna_value'] = array(
+        '#title' => 'Value',
+        '#type' => 'textfield',
+        '#description' => t('Enter in your first helix of your DNA and watch it generate the second!'),
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Go!',
+    );
+    return $form;
+}
+
+function dna_form_submit($form, &$form_state) {
+    $form_state['redirect'] = 'dna_generator_success_page';
+}
+
+function dna_success() {
+    return "<p> You got this far!</p>";
+}
